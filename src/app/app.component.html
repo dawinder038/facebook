@@ -28,7 +28,8 @@
             <img src="../assets/image.png" class="input-image" alt="image" width="60" height="60">
           </div>
           <div class="col-md-11 input-box">
-            <input type="text" class="input" placeholder="what's on your mind?" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <input type="text" class="input" placeholder="what's on your mind?" data-bs-toggle="modal"
+              data-bs-target="#exampleModal">
           </div>
         </div>
       </div>
@@ -42,24 +43,30 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-          <div class=" d-flex">
-            <div class="d-flex">
-              <img src="../assets/image.png" alt="" width="40" height="40">
-              <h5 class="ms-2">Jerry Luis</h5>
+            <img [src]=url alt="">
+            <div class=" d-flex">
+              <div class="d-flex">
+                <img src="../assets/image.png" alt="" width="40" height="40">
+                <h5 class="ms-2">Jerry Luis</h5>
+              </div>
             </div>
             <div>
-              <input type="file">
+              <form #myForm="ngForm" (ngSubmit)="submitForm(myForm.value)">
+                <input type="text" class="input-modal" name="post" placeholder="What's on your mind ?" ngModel>
+                <input type="file" ngModel name="background" (change)="fileChange($event)">
+                <div class="modal-footer">
+                  <button type="submit" class="btn w-100 btn-primary">Post</button>
+                </div>
+              </form>
             </div>
-          </div>
-          <div>
-            <input type="text" class="input-modal" placeholder="What's on your mind ?">
-          </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button"  class="btn w-100 btn-primary">Post</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 </main>
+<!-- <input type="file" (change)="changeFile($event)">  -->
+<!-- <ul>
+  <li>{{timeline}}</li>
+ 
+</ul> -->

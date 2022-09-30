@@ -5,17 +5,16 @@ import {HttpClient} from '@angular/common/http'
   providedIn: 'root'
 })
 export class Service1Service {
-
-  // apiurl = "http://139.59.47.49:4004/api"
-
+  public apiurl="http://139.59.47.49:4004/api/";
   constructor(private http:HttpClient) { }
   getMethod(){
-    // let paylod ={
-
-    // }
-    return this.http.get("http://139.59.47.49:4004/api/posts?limit=100&start=1&orderby=1")
+    return this.http.get(this.apiurl+'/posts')
   }
-  // postMethod(Data:any){
-  //   return this.http.post('http://139.59.47.49:4004/api/post',Data)
-  // }
+  uploadImage(event:any){
+    let file = event.target.files[0];
+    let formData=new FormData();
+    formData.append('file',file)
+    return this.http.post(this.apiurl+'/upload/image',formData)
+  }
 }
+
