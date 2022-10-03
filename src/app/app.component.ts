@@ -1,61 +1,62 @@
 import { HttpClient } from '@angular/common/http';
 import { ReadVarExpr } from '@angular/compiler';
 import { Component } from '@angular/core';
-import {Service1Service} from './MY-Services/service1.service'
-import { FormsModule } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { Service1Service } from './MY-Services/service1.service'
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-
-  users:any;
-  path:any;
-  imageSrc:any;
-  path2:any="../assets/image.png";
-  timeline:any;
   title = 'Facebook';
-  
-  // constructor(private serviceName:Service1Service){
-  //   this.serviceName.getMethod().subscribe((data)=>{
-  //   this.users=data;
-  //   console.log(data);
-  //   })
-  // }
-  url:any=""
-  imageChange(e:any){
-    if(e.target.files){
-      var reader=new FileReader()
-      reader.readAsDataURL(e.target.files[0]);
-      reader.onload=(event:any)=>{
-        this.url=event.target.result;
+  url: any = "";
+  path:string="";
+  bgImage:string="";
+
+  constructor(private serviceFacebook: Service1Service) {
+  }
+  ngOnInit(): void {
+    this.getData();
+  }
+  formName = new FormGroup({
+    post: new FormControl('', [Validators.required]),
+    background: new FormControl('', [Validators.required])
+  })
+ 
+  fileChange(event: any) {
+    if (event.target.files) {
+      var reader = new FileReader()
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
       }
     }
-  }
-  // postMethod(data:{post:any,background:any}){
-  //   this.serviceName.postMethod(data).subscribe((result:any)=>{
-  //     console.log(data);
-  //   })
-  // }
-// postMethod(data:{post:any,background:any}){
-//  return this.serviceName.postMethod
-
-// }
-
-constructor(private serviceFacebook:Service1Service){
-
-}
-submitForm(value:any){
-  // console.log(value)
-
-}
-
-fileChange(event:any){
-  this.serviceFacebook.uploadImage(event).subscribe((result:any)=>{
+    this.serviceFacebook.uploadImage(event).subscribe((result: any) => {
+     this.bgImage = 'http://139.59.47.49:4004/' + result.filename;
+      this.formName.controls['background'].patchValue(result.filename);
+      // console.log(result);
     
-    console.log(result)
-  })
-}
+    })
+  }
+  postMethod(data: any) {
+    this.serviceFacebook.postApi(data).subscribe((result: any) => {
+      console.log(result);
+      this.getData();
+    })
+  }
+  getData() {
+    let payload = {
+      limit: 20,
+      start: 1,
+      orderby: 0
+    }
+    this.serviceFacebook.getMethod(payload).subscribe((data: any) => {
+      console.log(data);
+      // this.path=this.bgImage;
+    })
+    // this.postImage();
+  }
+ 
 }
