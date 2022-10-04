@@ -79,10 +79,25 @@
 .my-form img{
     margin-left: 14px;
 }
-.bgImage{
-    // width: 800px;
-    background-repeat: no-repeat;
-}
 .input-modal{
     width: 90%;
+}
+.image-post{
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    background-repeat: no-repeat;
+   height: 300px;
+    background-size: cover;
+    background-position: cover;
+}
+.image-text{
+    background-color: white;
+    color:black;
+    overflow: auto;
+    text-align: center;
+}
+.filter-button{
+    border: none;
+    width: 100px;
 }

@@ -21,5 +21,11 @@ export class Service1Service {
     formData.append('file', file)
     return this.http.post(this.apiurl + '/upload/image', formData)
   }
+  deleteApi(id:any){
+    return this.http.delete(this.apiurl+ 'post/delete/'+id)
+  }
+  putApi(id:any){
+    return this.http.put(this.apiurl+'post',id)
+  }
 }
 

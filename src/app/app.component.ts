@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { ReadVarExpr } from '@angular/compiler';
 import { Component } from '@angular/core';
 import { Service1Service } from './MY-Services/service1.service'
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -11,10 +10,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent {
   title = 'Facebook';
-  url: any = "";
-  path:string="";
-  bgImage:string="";
-
+  url:string = "";
+  bgImage: string = "";
+  items: any;
+  updateImage:any="";
   constructor(private serviceFacebook: Service1Service) {
   }
   ngOnInit(): void {
@@ -24,20 +23,11 @@ export class AppComponent {
     post: new FormControl('', [Validators.required]),
     background: new FormControl('', [Validators.required])
   })
- 
   fileChange(event: any) {
-    if (event.target.files) {
-      var reader = new FileReader()
-      reader.readAsDataURL(event.target.files[0]);
-      reader.onload = (event: any) => {
-        this.url = event.target.result;
-      }
-    }
     this.serviceFacebook.uploadImage(event).subscribe((result: any) => {
-     this.bgImage = 'http://139.59.47.49:4004/' + result.filename;
+      this.bgImage = 'http://139.59.47.49:4004/' + result.filename;
       this.formName.controls['background'].patchValue(result.filename);
-      // console.log(result);
-    
+      console.log(result);
     })
   }
   postMethod(data: any) {
@@ -48,15 +38,32 @@ export class AppComponent {
   }
   getData() {
     let payload = {
-      limit: 20,
+      limit: 5,
       start: 1,
       orderby: 0
     }
     this.serviceFacebook.getMethod(payload).subscribe((data: any) => {
       console.log(data);
-      // this.path=this.bgImage;
+      this.items = data;
     })
-    // this.postImage();
   }
- 
+  deletePost(data:any){
+    this.serviceFacebook.deleteApi(data).subscribe((resp:any)=>{
+      console.log(data)
+      console.log(resp);
+      this.getData();
+    })
+  }
+
+  // updateFile(event: any) {
+  //   this.serviceFacebook.uploadImage(event).subscribe((result: any) => {
+  //     this.updateImage = 'http://139.59.47.49:4004/' + result.filename;
+  //     this.formName.controls['background'].patchValue(result.filename);
+  //     console.log(result);
+  //   })
+
+  updatePost(data:any){
+    this.getData();
+    console.log(data);
+  }
 }
