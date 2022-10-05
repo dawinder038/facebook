@@ -69,7 +69,7 @@
                   <img src="../assets/friends.png" alt="">
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn w-100 btn-primary">Post</button>
+                  <button type="submit" class="btn w-100 btn-primary">post</button>
                 </div>
               </form>
             </div>
@@ -85,7 +85,40 @@
       <div class="card mt-4">
         <div class="d-flex justify-content-between p-4">
           <h3>Posts</h3>
-          <button class="filter-button"><strong> Filters</strong></button>
+          <button class="filter-button" data-bs-toggle="modal" data-bs-target="#filterModal" ><strong> Filters</strong></button>
+        </div>
+      </div>
+      <!-- filter modal -->
+      <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Post Filters</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5>Use filter to find post on your timeline</h5>
+                <p class="small-text"><small>This will not affect how others see your timeline</small></p>
+                <div>
+                  <span>Go to:</span>
+                  <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Date</button>
+                    <form>
+                      <input type="date">
+                    </form>
+                    <!-- <ul class="dropdown-menu">
+                      <li>10</li>
+                      <li>11</li>
+                      <li>12</li>
+                    </ul> -->
+                  </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -114,7 +147,7 @@
                       <a class="dropdown-item" (click)="deletePost(item.id)" >Delete</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" (click)="updatePost(item.id)" data-bs-toggle="modal" data-bs-target="#updateModal" >Update</a>
+                      <a class="dropdown-item" (click)="getPostDatabyId(item.id)" data-bs-toggle="modal" data-bs-target="#updateModal">Edit</a>
                     </li>
                   </ul>
                 </div>
@@ -130,7 +163,7 @@
     </div>
   </section>
 </main>
-<!-- Modal for update Post -->
+<!--  Modal for update Post -->
 <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -146,24 +179,24 @@
           </div>
         </div>
         <div>
-          <form class="my-form2" [formGroup]="formName" (ngSubmit)="postMethod(formName.value)">
+          <form class="my-form" [formGroup]="updateForm" (ngSubmit)="updatePost(updateForm.value)">
             <div class="image-post"
-              [ngStyle]="{ 'background-image': bgImage != '' ? 'url(' + bgImage + ')' : 'url(' + '' + ' )','height.px':200}">
-              <input type="text" class="input-modal " formControlName="post" placeholder="Start Typing ...">
+              [ngStyle]="{ 'background-image': updateImage != '' ? 'url(' + updateImage + ')' : 'url(' + '' + ' )','height.px':200}">
+              <input type="text" class="input-modal " formControlName="post" (change)="updateFile" placeholder="Start Typing ...">
             </div>
             <div>
               <img src="../assets/left_arrow.png" alt="left arrow">
               <label for="input-file">
                 <img src="../assets/camera.png" alt=" camera ">
               </label>
-              <input type="file" id="input-file" style="display:none ;" (change)="fileChange($event)">
+              <input type="file" id="input-file" style="display:none ;">
               <img src="../assets/smiley.png" alt="">
               <img src="../assets/sticker.png" alt="">
               <img src="../assets/comment.png" alt="">
               <img src="../assets/friends.png" alt="">
             </div>
             <div class="modal-footer">
-              <button type="submit" class="btn w-100 btn-primary">Post</button>
+              <button type="submit" class="btn w-100 btn-primary">Update Post</button>
             </div>
           </form>
         </div>

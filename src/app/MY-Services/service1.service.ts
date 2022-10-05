@@ -25,7 +25,11 @@ export class Service1Service {
     return this.http.delete(this.apiurl+ 'post/delete/'+id)
   }
   putApi(id:any){
-    return this.http.put(this.apiurl+'post',id)
+    return this.http.put('http://139.59.47.49:4004/api/post',id)
   }
+
+  getPostById(id: any) {
+    return this.http.get(this.apiurl + '/post/' + id);
+  }  
 }
 

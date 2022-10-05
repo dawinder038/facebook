@@ -10,16 +10,20 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AppComponent {
   title = 'Facebook';
-  url:string = "";
+  url: string = "";
   bgImage: string = "";
   items: any;
-  updateImage:any="";
+  updateImage: any = "";
   constructor(private serviceFacebook: Service1Service) {
   }
   ngOnInit(): void {
     this.getData();
   }
   formName = new FormGroup({
+    post: new FormControl('', [Validators.required]),
+    background: new FormControl('', [Validators.required])
+  })
+  updateForm = new FormGroup({
     post: new FormControl('', [Validators.required]),
     background: new FormControl('', [Validators.required])
   })
@@ -47,23 +51,44 @@ export class AppComponent {
       this.items = data;
     })
   }
-  deletePost(data:any){
-    this.serviceFacebook.deleteApi(data).subscribe((resp:any)=>{
-      console.log(data)
-      console.log(resp);
+  deletePost(data: any) {
+    this.serviceFacebook.deleteApi(data).subscribe((resp: any) => {
+      // console.log(data)
+      // console.log(resp);
       this.getData();
     })
   }
 
-  // updateFile(event: any) {
-  //   this.serviceFacebook.uploadImage(event).subscribe((result: any) => {
-  //     this.updateImage = 'http://139.59.47.49:4004/' + result.filename;
-  //     this.formName.controls['background'].patchValue(result.filename);
-  //     console.log(result);
-  //   })
-
-  updatePost(data:any){
-    this.getData();
-    console.log(data);
+  getPostDatabyId(id: any) {
+    return this.serviceFacebook.getPostById(id).subscribe((resp: any) => {
+      this.updateImage = 'http://139.59.47.49:4004/' + resp.background;
+      this.updateForm.controls['background'].setValue(resp)
+      this.updateForm.controls['post'].setValue(resp.post);
+      // console.log(resp);
+      console.log(resp);
+    })
+  }
+  updatePost(data: any) {
+    // console.log(data);
+    return this.serviceFacebook.putApi(data.background).subscribe((result: any) => {
+      // console.log(data.post)
+      // console.log(data.background)
+      console.log();
+      console.log(result)
+      // this.updateImage = 'http://139.59.47.49:4004/' + result.background;
+      // this.updateForm.controls['post'].setValue(result.post);
+      // this.updateForm.controls['background'].setValue(result.background);
+      // console.log(result);
+      this.getData();
+    })
+  }
+  updateFile(event: any) {
+    //   this.serviceFacebook.uploadImage(event).subscribe((result: any) => {
+    //     this.updateImage = 'http://139.59.47.49:4004/' + result.filename;
+    //     this.updateForm.controls['background'].patchValue(result.filename);
+    //     console.log(result);
+    //     console.log(result.post);
+    //     console.log(result.background);
+    // })
   }
 }
