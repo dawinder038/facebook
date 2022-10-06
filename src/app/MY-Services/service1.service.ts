@@ -12,7 +12,7 @@ export class Service1Service {
   postApi(data: any) {
     return this.http.post(this.apiurl + '/post', data)
   }
-  getMethod(payload:any) {
+  getMethod(payload: any) {
     return this.http.get(this.apiurl + 'posts?limit=' + payload.limit + "&start=" + payload.start + '&orderby=' + payload.orderby)
   }
   uploadImage(event: any) {
@@ -21,15 +21,17 @@ export class Service1Service {
     formData.append('file', file)
     return this.http.post(this.apiurl + '/upload/image', formData)
   }
-  deleteApi(id:any){
-    return this.http.delete(this.apiurl+ 'post/delete/'+id)
+  deleteApi(id: any) {
+    return this.http.delete(this.apiurl + 'post/delete/' + id)
   }
-  putApi(id:any){
-    return this.http.put('http://139.59.47.49:4004/api/post',id)
+  putApi(data:any) {
+    return this.http.put(this.apiurl+'post', data)
   }
-
   getPostById(id: any) {
     return this.http.get(this.apiurl + '/post/' + id);
-  }  
+  }
+  filterApi(payload:any){
+    return this.http.get(this.apiurl+'posts?limit='+payload.limit+"&start="+payload.start+"&date="+payload.date+"&orderby="+payload.orderby)
+  }
 }
 

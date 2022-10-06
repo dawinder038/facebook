@@ -1,19 +1,22 @@
 <main>
   <section class="section-1">
-    <div class="container shadow-sm">
-      <div class="card p-relative">
+    <div class="container">
+      <div class="card p-relative border-0">
         <img src="https://www.altonhotelsf.com/images/1700-960/sf-bridge-19b6ebfa.jpg" class=" " alt="Main-Image">
-        <div class="p-absolute text-align">
+        <div class="text-align " style="    margin-top: -77px;">
           <img src="../assets/image.png" class="small-image" alt="small-image">
           <h4>Jerry Luis</h4>
         </div>
+        <hr>
       </div>
     </div>
   </section>
+  <!-- This is filter Section -->
+
   <section id="timeline-section" class="shadow-sm">
     <div class="container">
       <div class="row">
-        <hr>
+    
         <div class="col text-align">
           <h3>
             <a href="">Timeline</a>
@@ -47,15 +50,15 @@
           <div class="modal-body">
             <div class=" d-flex">
               <div class="d-flex">
-                <img src="../assets/image.png" alt="" width="40" height="40">
+                <img src="../assets/image.png" alt="image" width="40" height="40">
                 <h5 class="ms-2">Jerry Luis</h5>
               </div>
             </div>
             <div>
               <form class="my-form" [formGroup]="formName" (ngSubmit)="postMethod(formName.value)">
-                <div class="image-post"
+                <div class="image-post p-1"
                   [ngStyle]="{ 'background-image': bgImage != '' ? 'url(' + bgImage + ')' : 'url(' + '' + ' )','height.px':200}">
-                  <input type="text" class="input-modal " formControlName="post" placeholder="Start Typing ...">
+                  <input type="text" class="input-modal mb-4 " formControlName="post" placeholder="Start Typing ...">
                 </div>
                 <div>
                   <img src="../assets/left_arrow.png" alt="left arrow">
@@ -63,10 +66,14 @@
                     <img src="../assets/camera.png" alt=" camera ">
                   </label>
                   <input type="file" id="input-file" style="display:none ;" (change)="fileChange($event)">
-                  <img src="../assets/smiley.png" alt="">
-                  <img src="../assets/sticker.png" alt="">
-                  <img src="../assets/comment.png" alt="">
-                  <img src="../assets/friends.png" alt="">
+                  <img src="../assets/smiley.png" alt="image">
+                  <img src="../assets/sticker.png" alt="image">
+                  <img src="../assets/comment.png" alt="image">
+                  <img src="../assets/friends.png" alt="image">
+                  <img src="../assets/like_fill.png" alt="like fill">
+                  <img src="../assets/photos.png" alt="photos">
+                  <img src="../assets/place.png" alt="place">
+                  <img src="../assets/tag.png" alt="tag">
                 </div>
                 <div class="modal-footer">
                   <button type="submit" class="btn w-100 btn-primary">post</button>
@@ -78,14 +85,14 @@
       </div>
     </div>
   </section>
-  <!-- this is second section -->
   <section class="section2">
     <!-- This is filter box -->
     <div class="container">
       <div class="card mt-4">
         <div class="d-flex justify-content-between p-4">
           <h3>Posts</h3>
-          <button class="filter-button" data-bs-toggle="modal" data-bs-target="#filterModal" ><strong> Filters</strong></button>
+          <button class="filter-button" data-bs-toggle="modal" data-bs-target="#filterModal"><strong>
+              Filters</strong></button>
         </div>
       </div>
       <!-- filter modal -->
@@ -97,26 +104,58 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <h5>Use filter to find post on your timeline</h5>
-                <p class="small-text"><small>This will not affect how others see your timeline</small></p>
-                <div>
-                  <span>Go to:</span>
-                  <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Date</button>
-                    <form>
-                      <input type="date">
-                    </form>
-                    <!-- <ul class="dropdown-menu">
-                      <li>10</li>
-                      <li>11</li>
-                      <li>12</li>
-                    </ul> -->
+              <h5>Use filter to find post on your timeline</h5>
+              <p>
+                <small>This will not affect how others see your timeline</small>
+              </p>
+              <form #filterForm="ngForm" (ngSubmit)="filterMethod(filterForm.value)">
+                <div class="row">
+                  <div class="col-3">
+                    <h3>Go To:</h3>
+                  </div>
+                  <div class="col-3">
+                    <select name="year" id="years" ngModel>
+                      <option value="2022">2022</option>
+                      <option>2021</option>
+                    </select>
+                  </div>
+                  <div class="col-3 ">
+                    <select name="month" id="months" ngModel>
+                      <option value="1">January</option>
+                      <option value="2">February</option>
+                      <option value="3">March</option>
+                      <option value="4">April</option>
+                      <option value="5">May</option>
+                      <option value="6">June</option>
+                      <option value="7">July</option>
+                      <option value="8">August</option>
+                      <option value="9">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                  </div>
+                  <div class="col-3">
+                    <select name="date" id="dates" ngModel>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
                   </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="modal-footer">
+                  <button type="submit" class="btn w-100 btn-primary">Done</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -129,25 +168,26 @@
             <div class="d-flex justify-content-between">
               <div class="d-flex ">
                 <img src="../assets/image.png" class="input-image" alt="image" width="60" height="60">
-                <h3>Jerry Luis</h3>
+                <h3 class="mt-2 ms-2">Jerry Luis</h3>
               </div>
               <div>
                 <!-- drop down Svg -->
                 <div class="dropdown">
-                  <a class="btn btn-secondary " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <a class="btn btn-secondary " role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <svg class="w-64 h-64" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                    viewBox="0 0 16 16" >
-                    <path
-                      d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z">
-                    </path>
-                  </svg>
+                      viewBox="0 0 16 16">
+                      <path
+                        d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z">
+                      </path>
+                    </svg>
                   </a>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" (click)="deletePost(item.id)" >Delete</a>
+                      <a class="dropdown-item" (click)="deletePost(item.id)">Delete</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" (click)="getPostDatabyId(item.id)" data-bs-toggle="modal" data-bs-target="#updateModal">Edit</a>
+                      <a class="dropdown-item" (click)="getPostDatabyId(item.id)" data-bs-toggle="modal"
+                        data-bs-target="#updateModal">Edit</a>
                     </li>
                   </ul>
                 </div>
@@ -174,7 +214,7 @@
       <div class="modal-body">
         <div class=" d-flex">
           <div class="d-flex">
-            <img src="../assets/image.png" alt="" width="40" height="40">
+            <img src="../assets/image.png" alt="image" width="40" height="40">
             <h5 class="ms-2">Jerry Luis</h5>
           </div>
         </div>
@@ -182,7 +222,7 @@
           <form class="my-form" [formGroup]="updateForm" (ngSubmit)="updatePost(updateForm.value)">
             <div class="image-post"
               [ngStyle]="{ 'background-image': updateImage != '' ? 'url(' + updateImage + ')' : 'url(' + '' + ' )','height.px':200}">
-              <input type="text" class="input-modal " formControlName="post" (change)="updateFile" placeholder="Start Typing ...">
+              <input type="text" class="input-modal mb-3 " formControlName="post" placeholder="Start Typing ...  "  >
             </div>
             <div>
               <img src="../assets/left_arrow.png" alt="left arrow">
@@ -190,10 +230,14 @@
                 <img src="../assets/camera.png" alt=" camera ">
               </label>
               <input type="file" id="input-file" style="display:none ;">
-              <img src="../assets/smiley.png" alt="">
-              <img src="../assets/sticker.png" alt="">
-              <img src="../assets/comment.png" alt="">
-              <img src="../assets/friends.png" alt="">
+              <img src="../assets/smiley.png" alt="image">
+              <img src="../assets/sticker.png" alt="image">
+              <img src="../assets/comment.png" alt="image">
+              <img src="../assets/friends.png" alt="image">
+              <img src="../assets/like_fill.png" alt="like fill">
+              <img src="../assets/photos.png" alt="photos">
+              <img src="../assets/place.png" alt="place">
+              <img src="../assets/tag.png" alt="tag">
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn w-100 btn-primary">Update Post</button>
@@ -204,3 +248,4 @@
     </div>
   </div>
 </div>
+
