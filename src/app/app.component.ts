@@ -15,16 +15,14 @@ export class AppComponent {
   items:any;
   updateImage: any = "";
   data: any;
+  ternary:boolean=false;
+  editMode:boolean=false;
   constructor(private serviceFacebook: Service1Service) {
   }
   ngOnInit(): void {
     this.getData();
   }
   formName = new FormGroup({
-    post: new FormControl('', [Validators.required]),
-    background: new FormControl('', [Validators.required])
-  });
-  updateForm = new FormGroup({
     post: new FormControl('', [Validators.required]),
     background: new FormControl('', [Validators.required])
   });
@@ -39,6 +37,7 @@ export class AppComponent {
     this.serviceFacebook.postApi(data).subscribe((result: any) => {
       console.log(result);
       this.getData();
+      this.ternary=false;
     });
   }
   getData() {
@@ -50,6 +49,8 @@ export class AppComponent {
     this.serviceFacebook.getMethod(payload).subscribe((data: any) => {
       // console.log(data);
       this.items = data;
+      this.editMode=false;
+      this.ternary=false;
     });
   }
   deletePost(data: any) {
@@ -59,26 +60,28 @@ export class AppComponent {
   }
   getPostDatabyId(id: any) {
     return this.serviceFacebook.getPostById(id).subscribe((resp: any) => {
-      this.updateImage = 'http://139.59.47.49:4004/' + resp.background;
-      this.updateForm.controls['background'].setValue(resp.background)
-      this.updateForm.controls['post'].setValue(resp.post);
+      this.bgImage = 'http://139.59.47.49:4004/' + resp.background;
+      this.formName.controls['background'].setValue(resp.background)
+      this.formName.controls['post'].setValue(resp.post);
        this.data=resp;
        console.log(this.updateImage)
       // console.log(resp);
+      this.editMode=true;
+      this.ternary=true;
     });
   }
-  updatePost(data: any) {
+  submit(data: any) {
     let payload = {
       id: this.data.id,
       post:data.post,
       background:data.background
     }
-    // debugger
     return this.serviceFacebook.putApi(payload).subscribe((result: any) => {
       console.log(payload.post)
       console.log(payload.background)
       console.log(result)
       this.getData();
+      this.ternary=true;
     })
   }
   filterMethod(value: any) {

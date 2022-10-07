@@ -40,7 +40,7 @@
       </div>
     </div>
     <!-- modal of input -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal"   tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -55,7 +55,7 @@
               </div>
             </div>
             <div>
-              <form class="my-form" [formGroup]="formName" (ngSubmit)="postMethod(formName.value)">
+              <form class="my-form" [formGroup]="formName" (ngSubmit)="submit(formName.value)">
                 <div class="image-post p-1"
                   [ngStyle]="{ 'background-image': bgImage != '' ? 'url(' + bgImage + ')' : 'url(' + '' + ' )','height.px':200}">
                   <input type="text" class="input-modal mb-4 " formControlName="post" placeholder="Start Typing ...">
@@ -76,7 +76,10 @@
                   <img src="../assets/tag.png" alt="tag">
                 </div>
                 <div class="modal-footer">
-                  <button type="submit" class="btn w-100 btn-primary">post</button>
+                  <!-- <button type="submit" class="btn w-100 btn-primary">post</button> -->
+                  <button class="btn btn-primary w-100" type="submit" data-bs-dismiss="modal"
+                (click)="ternary ? submit(formName.value)  : postMethod(formName.value)  ">{{editMode? 'Update Post' : 'Post'}}</button>
+                  
                 </div>
               </form>
             </div>
@@ -96,7 +99,7 @@
         </div>
       </div>
       <!-- filter modal -->
-      <div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="filterModal"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
@@ -187,7 +190,7 @@
                     </li>
                     <li>
                       <a class="dropdown-item" (click)="getPostDatabyId(item.id)" data-bs-toggle="modal"
-                        data-bs-target="#updateModal">Edit</a>
+                        data-bs-target="#exampleModal">Edit</a>
                     </li>
                   </ul>
                 </div>
@@ -203,49 +206,4 @@
     </div>
   </section>
 </main>
-<!--  Modal for update Post -->
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Update Post</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class=" d-flex">
-          <div class="d-flex">
-            <img src="../assets/image.png" alt="image" width="40" height="40">
-            <h5 class="ms-2">Jerry Luis</h5>
-          </div>
-        </div>
-        <div>
-          <form class="my-form" [formGroup]="updateForm" (ngSubmit)="updatePost(updateForm.value)">
-            <div class="image-post"
-              [ngStyle]="{ 'background-image': updateImage != '' ? 'url(' + updateImage + ')' : 'url(' + '' + ' )','height.px':200}">
-              <input type="text" class="input-modal mb-3 " formControlName="post" placeholder="Start Typing ...  "  >
-            </div>
-            <div>
-              <img src="../assets/left_arrow.png" alt="left arrow">
-              <label for="input-file">
-                <img src="../assets/camera.png" alt=" camera ">
-              </label>
-              <input type="file" id="input-file" style="display:none ;">
-              <img src="../assets/smiley.png" alt="image">
-              <img src="../assets/sticker.png" alt="image">
-              <img src="../assets/comment.png" alt="image">
-              <img src="../assets/friends.png" alt="image">
-              <img src="../assets/like_fill.png" alt="like fill">
-              <img src="../assets/photos.png" alt="photos">
-              <img src="../assets/place.png" alt="place">
-              <img src="../assets/tag.png" alt="tag">
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn w-100 btn-primary">Update Post</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
